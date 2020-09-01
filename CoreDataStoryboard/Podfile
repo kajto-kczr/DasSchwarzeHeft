@@ -1,0 +1,5 @@
+target 'CoreDataStoryboard' do
+  use_frameworks!
+
+  pod 'CSPieChart'
+end
