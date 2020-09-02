@@ -294,7 +294,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Znl-DX-7X1">
-                                <rect key="frame" x="0.0" y="127" width="810" height="128"/>
+                                <rect key="frame" x="0.0" y="335" width="810" height="128"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oKr-2G-Op6" customClass="CSPieChart" customModule="CSPieChart">
                                         <rect key="frame" x="0.0" y="0.0" width="810" height="128"/>
@@ -304,19 +304,57 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="okX-HW-DWJ">
+                                <rect key="frame" x="20" y="110" width="770" height="34"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="GHh-M9-720">
+                                        <rect key="frame" x="0.0" y="0.0" width="770" height="34"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpM-A0-NBC">
+                                                <rect key="frame" x="0.0" y="0.0" width="243.5" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="€" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AiJ-P0-gxh">
+                                                <rect key="frame" x="263.5" y="0.0" width="243" height="34"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qw8-ss-bSx">
+                                                <rect key="frame" x="526.5" y="0.0" width="243.5" height="34"/>
+                                                <state key="normal" title="Save"/>
+                                                <connections>
+                                                    <action selector="currencyDoneButtonTapped:" destination="Db8-zp-WpI" eventType="touchUpInside" id="V6r-bD-Dug"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="GHh-M9-720" firstAttribute="leading" secondItem="okX-HW-DWJ" secondAttribute="leading" id="36d-bi-mPx"/>
+                                    <constraint firstAttribute="trailing" secondItem="GHh-M9-720" secondAttribute="trailing" id="P2V-K3-I2G"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="FpS-ji-eD1" firstAttribute="trailing" secondItem="Znl-DX-7X1" secondAttribute="trailing" id="9G7-pF-bvJ"/>
                             <constraint firstItem="Znl-DX-7X1" firstAttribute="top" secondItem="FpS-ji-eD1" secondAttribute="top" id="YXG-wd-i8n"/>
                             <constraint firstItem="Znl-DX-7X1" firstAttribute="leading" secondItem="FpS-ji-eD1" secondAttribute="leading" id="iAF-in-K3x"/>
+                            <constraint firstItem="okX-HW-DWJ" firstAttribute="leading" secondItem="FpS-ji-eD1" secondAttribute="leading" constant="20" id="qc5-oI-ovX"/>
+                            <constraint firstItem="okX-HW-DWJ" firstAttribute="top" secondItem="FpS-ji-eD1" secondAttribute="top" constant="8" id="rjw-Ft-9rn"/>
+                            <constraint firstItem="FpS-ji-eD1" firstAttribute="trailing" secondItem="okX-HW-DWJ" secondAttribute="trailing" constant="20" id="uEt-cK-yhJ"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FpS-ji-eD1"/>
                     </view>
                     <navigationItem key="navigationItem" id="UFx-dG-7cC"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="currencyTextfield" destination="AiJ-P0-gxh" id="Kce-xz-eft"/>
+                        <outlet property="nav" destination="UFx-dG-7cC" id="IYB-h2-ZQg"/>
                         <outlet property="pieChart" destination="oKr-2G-Op6" id="grw-X4-v7f"/>
+                        <outlet property="stack" destination="okX-HW-DWJ" id="Jgz-er-ffj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pJO-Vj-668" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -595,11 +633,11 @@
             </objects>
             <point key="canvasLocation" x="138.5185185185185" y="880"/>
         </scene>
-        <!--Settings-->
+        <!--Navigation Controller-->
         <scene sceneID="LCv-jJ-v5N">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="edw-KZ-XHa" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Settings" image="gear" catalog="system" id="5EH-8m-P8x"/>
+                    <tabBarItem key="tabBarItem" title="" image="star" catalog="system" id="5EH-8m-P8x"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="HaI-0t-gWQ">
                         <rect key="frame" x="0.0" y="0.0" width="810" height="102"/>
@@ -621,8 +659,8 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="flag" catalog="system" width="128" height="121"/>
-        <image name="gear" catalog="system" width="128" height="119"/>
         <image name="person.crop.square" catalog="system" width="128" height="114"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
     </resources>
 </document>

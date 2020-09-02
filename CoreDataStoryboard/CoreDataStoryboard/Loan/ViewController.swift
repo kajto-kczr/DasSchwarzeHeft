@@ -15,11 +15,12 @@ class ViewController: UIViewController {
     var currentPerson: Person!
     @IBOutlet weak var debtLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    var currency: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-//        title =
+        currency = UserDefaults.standard.optionalString(forKey: "currency") ?? "€"
         self.navigationItem.title = "Das schwarze Heft"
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable(notification:)), name: NSNotification.Name(rawValue: "reloadTable"), object: nil)
     }
@@ -28,11 +29,11 @@ class ViewController: UIViewController {
         super.viewWillAppear(animated)
         
         fetchCoreData()
-        debtLabel.text = "- \(getOverallDebt()) €"
+        debtLabel.text = "- \(getOverallDebt()) \(currency!)"
     }
     
     @objc func reloadTable(notification: NSNotification) {
-        debtLabel.text = "- \(getOverallDebt()) €"
+        debtLabel.text = "- \(getOverallDebt()) \(currency!)"
         tableView.reloadData()
     }
     
@@ -127,7 +128,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         let person = people[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = person.value(forKey: "name") as? String
-        cell.detailTextLabel?.text = "\(debtSum(person: person as! Person)) €"
+        cell.detailTextLabel?.text = "\(debtSum(person: person as! Person)) \(currency!)"
         return cell
     }
     

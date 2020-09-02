@@ -14,14 +14,14 @@ class SecondaryViewController: UIViewController {
     var currentPerson: Person!
     var items: [NSManagedObject] = []
     var currentItem: Item!
-
+    var currency: String?
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.dataSource = self
         tableView.delegate = self
-        
+        currency = UserDefaults.standard.optionalString(forKey: "currency") ?? "€"
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable(notification:)), name: NSNotification.Name("reloadItemTable"), object: nil)
     }
     
@@ -118,7 +118,7 @@ extension SecondaryViewController: UITableViewDataSource, UITableViewDelegate {
         cell.accessoryType = item.isPayed ? .checkmark : .none
         
         let cost = item.value(forKey: "cost") ?? 0.0
-        cell.detailTextLabel?.text = "\(cost) €"
+        cell.detailTextLabel?.text = "\(cost) \(currency!)"
         return cell
     }
     

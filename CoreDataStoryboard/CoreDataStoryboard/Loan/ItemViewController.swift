@@ -38,13 +38,14 @@ class ItemViewController: UIViewController {
     var datePicker: UIDatePicker!
     var descriptionTextfield: UITextField!
     var fromDebtViewController: Bool = false
-    
+    var currency: String?
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Debt Item"
         isPayed = fromDebtViewController ? debtItem.isPayed : currentItem.isPayed
         paidButton.title = isPayed ? "Unpaid" : "Paid"
+        currency = UserDefaults.standard.optionalString(forKey: "currency") ?? "€"
         // Do any additional setup after loading the view.
         tableView.dataSource = self
         cellTitle = tableView.dequeueReusableCell(withIdentifier: "basic")!
@@ -63,7 +64,7 @@ class ItemViewController: UIViewController {
         lblDate.text = df.string(from: fromDebtViewController ? debtItem.datum! : currentItem.date!)
         
         let lblCost = cellCost.contentView.subviews[0] as! UILabel
-        lblCost.text = fromDebtViewController ? "\(debtItem.cost)" : "\(currentItem.cost) €"
+        lblCost.text = fromDebtViewController ? "\(debtItem.cost)" : "\(currentItem.cost) \(currency!)"
         
         let lblType = cellType.contentView.subviews[0] as! UILabel
         lblType.text = fromDebtViewController ? debtItem.type : currentItem.type

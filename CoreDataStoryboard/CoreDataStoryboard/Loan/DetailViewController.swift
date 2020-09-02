@@ -52,7 +52,7 @@ class DetailViewController: UIViewController {
             btn.setTitle(type.name, for: UIControl.State())
         }
     }
-    
+    var currency: String?
     var fromDebtViewController: Bool = false
     var datePicker: UIDatePicker!
     var descriptionTextfield: UITextField!
@@ -60,6 +60,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Add debt item"
+        currency = UserDefaults.standard.optionalString(forKey: "currency") ?? "€"
         tableView.dataSource = self
         cellTitle = tableView.dequeueReusableCell(withIdentifier: "textfield")!
         cellCost = tableView.dequeueReusableCell(withIdentifier: "textfield")!

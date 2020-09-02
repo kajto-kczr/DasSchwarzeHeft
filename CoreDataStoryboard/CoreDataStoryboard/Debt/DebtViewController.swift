@@ -15,12 +15,14 @@ class DebtViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     var debtItems: [NSManagedObject] = []
     var debtItem: DebtItem!
+    var currency: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.navigationItem.title = "Das schwarze Heft"
+        currency = UserDefaults.standard.optionalString(forKey: "currency") ?? "€"
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable(notification:)), name: NSNotification.Name(rawValue: "reloadDebtTable"), object: nil)
         tableView.dataSource = self
         tableView.delegate = self
@@ -29,7 +31,7 @@ class DebtViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchCoreData()
-        debtLabel.text = "- \(getOverallDebt()) €"
+        debtLabel.text = "- \(getOverallDebt()) \(currency!)"
     }
     
     func fetchCoreData() {
@@ -78,7 +80,7 @@ class DebtViewController: UIViewController {
     
     @objc func reloadTable(notification: NSNotification) {
         fetchCoreData()
-        debtLabel.text = "- \(getOverallDebt()) €"
+        debtLabel.text = "- \(getOverallDebt()) \(currency!)"
         tableView.reloadData()
     }
 }
@@ -97,7 +99,7 @@ extension DebtViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let debtItem = debtItems[indexPath.row] as! DebtItem
         cell.textLabel?.text = debtItem.value(forKey: "name") as? String
-        cell.detailTextLabel?.text = "\(debtItem.cost) €"
+        cell.detailTextLabel?.text = "\(debtItem.cost) \(currency!)"
         cell.detailTextLabel?.textColor = (debtItem.value(forKey: "isPayed") as! Bool) ? UIColor.green : UIColor.red
         
         return cell
